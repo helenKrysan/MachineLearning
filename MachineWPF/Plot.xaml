@@ -1,0 +1,29 @@
+﻿<Window x:Class="MachineWPF.Plot"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MachineWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="40"></RowDefinition>
+			<RowDefinition Height="40"></RowDefinition>
+			<RowDefinition Height="40"></RowDefinition>
+			<RowDefinition Height="40"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition></ColumnDefinition>
+			<ColumnDefinition></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<oxy:PlotView Grid.Row="0" Grid.ColumnSpan="2" Model="{Binding Model}" />
+		<Label Name="Risk" Grid.Row="1" Height ="40" Content="LABEL" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+		<Label Name="K" Grid.Row="2"  Height ="40" Content="LABEL" HorizontalAlignment="Left" Margin="0,0,0,0" />
+		<TextBox Name="XBox" Grid.Row="3" Grid.Column="0" ></TextBox>
+		<Button Name="XButton" Grid.Row="3" Grid.Column="1" Click="XButton_Click" ></Button>
+		<Button Name="RButton" Grid.Row="4"  Grid.ColumnSpan="2" Click="RButton_Click" ></Button>
+	</Grid>
+</Window>
