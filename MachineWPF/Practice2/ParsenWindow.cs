@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace MachineWPF.Practice2
 {
-    class ParsenWindow<T,C> : AbstractSingleton<ParsenWindow<T, C>> where T : IMetric<T>
+    class ParsenWindow<T,C> : AbstractClassification<T, C> where T : IMetric<T> where C : IComparable
     {
 
-        internal C Evaluate(T testObject, Dictionary<T,C> precedents, Core core, double h)
+        internal C Evaluate(T testObject, Dictionary<T,C> precedents, Kernel kernel, double h)
         {
             Dictionary<C, double> allClassDistance = new Dictionary<C, double>();
 
             foreach (var obj in precedents.Keys)
             {
                 double dist = testObject.Distance(obj);
-                if (!allClassDistance.ContainsKey(precedents[obj]))
+                if (!allClassDistance.ContainsKey(Precedents[obj]))
                 {
-                    allClassDistance.Add(precedents[obj], core.CoreExec(dist / h));
+                    allClassDistance.Add(precedents[obj], kernel.KernelExec(dist / h));
                 }
                 else
                 {
-                    allClassDistance[precedents[obj]] += core.CoreExec(dist / h);
+                    allClassDistance[precedents[obj]] += kernel.KernelExec(dist / h);
                 }
             }
 

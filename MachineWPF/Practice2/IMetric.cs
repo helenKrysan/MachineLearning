@@ -1,7 +1,10 @@
-﻿namespace MachineWPF.Practice2
+﻿using System;
+
+namespace MachineWPF.Practice2
 {
-    interface IMetric<T>
+    interface IMetric<T> 
     {
        double Distance(T p);
+        
     }
 }

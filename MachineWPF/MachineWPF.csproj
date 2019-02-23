@@ -69,8 +69,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="PlotViewModel.cs" />
-    <Compile Include="Patterns\AbstractSingleton.cs" />
-    <Compile Include="Practice2\Core.cs" />
+    <Compile Include="Practice2\AbstractClassification.cs" />
+    <Compile Include="Practice2\Kernel.cs" />
     <Compile Include="Practice2\IMetric.cs" />
     <Compile Include="Practice2\KNearestNeighbors.cs" />
     <Compile Include="Parameters.cs" />

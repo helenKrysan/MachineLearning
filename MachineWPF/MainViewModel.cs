@@ -28,7 +28,8 @@ namespace MachineWPF
 
         private void ParsenWindowDisplayCommandImpl(object obj)
         {
-            
+            Plot plot = new Plot(5);
+            plot.Show();
         }
 
     }

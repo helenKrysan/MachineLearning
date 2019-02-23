@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MachineWPF
 {
@@ -13,6 +10,12 @@ namespace MachineWPF
     using OxyPlot.Series;
     class PlotViewModel
     {
+        private ParsenWindow<Point, int> _parzenWindow;
+        private KNearestNeighbors<Point, int> _kNearestNeighbors;
+
+
+
+        //trash
         public static double eRisk = 0;
         public static double classX = 0;
         //       public double ERisk { get { return eRisk; } set { eRisk = value; } }
@@ -29,10 +32,14 @@ namespace MachineWPF
         public static bool isRandom = false;
         public static Point testPoint = new Point(9.5, 7.9);
 
+
         public PlotViewModel(int type)
         {
+            _parzenWindow = new ParsenWindow<Point, int>();
+            _kNearestNeighbors = new KNearestNeighbors<Point, int>();
             PlotBuild(type);
         }
+
 
         public void PlotBuild(int type)
         {
@@ -174,51 +181,20 @@ namespace MachineWPF
             }
             if (type == 4 || type == 5 || type == 6)
             {
-                Random random = new Random();
+
                 //test data, form list (point,class)
+
                 double maxX = 10;
                 double minX = 5;
                 double maxY = 10;
                 double minY = 5;
                 int partsX = 5;
                 int partsY = 6;
-                double[] testX = { 8.21, 5.38, 6.73, 5.67, 8.7, 9.95, 8.11, 5.41, 8.37, 5.14, 5.48, 8.32, 9.76, 9.97, 9.88, 5.69, 7.7, 6.42, 6.42, 9.7, 5.98, 7.6, 6.42, 7.42, 7.84, 8.79, 6.58, 9.94, 6.32, 8.25, 5.06, 9.24, 7.75, 8.85, 6.5, 7.22, 9.46, 6.62, 7.91, 9.53, 8.15, 7.6, 7.97, 9.96, 5.11, 6.87, 5.15, 6.42, 6.62, 9.79, 6.61, 8.52, 8.95, 5.68, 7.27, 9.95, 7.45, 5.73, 9.35, 5.6, 6.61, 6.36, 8.99, 6.84, 6.37, 5.41, 8.88, 5.11, 5.16, 8.11, 6.82, 9.24, 7.38, 8.61, 7.6, 6.65, 5.44, 5.23, 7.29, 7.42, 8.55, 8.02, 6.2, 6.58, 6.07, 6.93, 5.6, 9.5, 7.61, 6.93, 9.29, 5.48, 6.65, 8.19, 6.22, 8.02, 8.58, 9.5, 9.44, 7.75 };
-                double[] testY = { 6.55, 6.07, 7.82, 9.15, 5.59, 8.38, 7.72, 6.29, 6.46, 7.21, 5.1, 9.42, 6.5, 5.05, 5.02, 6.61, 9.41, 6.6, 7.6, 5.12, 6.78, 6.99, 6.42, 6.71, 7.22, 8.2, 9.18, 9.39, 9.55, 8.49, 6.04, 5.37, 8.26, 5.72, 8.1, 7.64, 7.04, 7.5, 7.82, 5.14, 5.33, 8.91, 8.83, 6.07, 9.31, 6.51, 5.41, 9.47, 5.29, 7.59, 8.39, 8.25, 6.31, 8.72, 9.04, 7.66, 6.59, 6.18, 9.41, 8.66, 7.26, 8.07, 6.14, 7.64, 5.11, 6.62, 6.83, 8.9, 8.43, 8.52, 5.3, 8.24, 7.65, 5.55, 7.68, 5.94, 8.5, 8.21, 8.54, 9.43, 9.54, 9.48, 6.56, 7.86, 7.18, 5.36, 7.14, 5.2, 6.7, 5.37, 6.03, 8.35, 5.03, 8.87, 8.33, 5.65, 6.58, 6.54, 7.55, 9.75 };
+                var learningPoints = new ScatterSeries { MarkerType = MarkerType.Circle };
 
-                //     double[] testX = { 9.22, 8.98, 6.51, 8.57, 8.43, 8.08, 7.54, 9.28, 8.67, 7.81, 9.19, 8.14, 9.38, 9.05, 9.48, 5.59, 7.32, 6.37, 5.48, 5.42 };
-                //     double[] testY = { 9.21, 6.16, 8.28, 5.84, 9.29, 7.37, 6.23, 7.76, 9.07, 8.02, 8.55, 6.75, 7.53, 7.64, 8.38, 6.34, 5.25, 6.54, 7.93, 8.82 };
-                //     double[] testX = { 9.04, 5.64, 5.17, 7.77, 6.36, 7.69, 9.83, 8.51, 6.28, 5.23, 7.44, 9.29, 9.74, 9.48, 5.84, 9.76, 6.99, 5.64, 9.49, 6.02, 5.87, 5.13, 9.88, 6.99, 7.96, 7.71, 7.65, 6.16, 7.77, 9.21, 8.35, 5.05, 5.64, 5.1, 7.66, 5.78, 8.61, 8.07, 7.69, 9.72, 9.47, 9.05, 5.34, 6.28, 5.06, 5.59, 7.69, 7.38, 9.29, 5.17, 7.29, 8.69, 9.16, 7.32, 8.45, 6.36, 6.13, 8.1, 6.95, 9.61, 6.71, 7.91, 9.61, 8.72, 7.57, 9.24, 6.66, 9.23, 7.45, 9.37, 6.02, 9.35, 7.61, 7.69, 8.26, 6.8, 7.49, 6.84, 9.56, 8.84, 5.38, 6.99, 7.01, 7.74, 7.47, 5.12, 9.39, 8.06, 5.4, 5.01, 7.21, 5.6, 9.27, 9.63, 7.97, 7.37, 7.1, 9.77, 8.64, 5.05 };
-                if (isRandom)
-                {
-                    for (int i = 0; i < testX.Length; i++)
-                    {
-                        testX[i] = random.NextDouble() * (maxX - minX) + minX;
-                    }
-                    for (int i = 0; i < testY.Length; i++)
-                    {
-                        testY[i] = random.NextDouble() * (maxY - minY) + minY;
-                    }
-                }
-                int sizeData = testX.Length;
-                List<Point> dataN = new List<Point>();
-                Dictionary<Point, int> precedents = new Dictionary<Point, int>();
+                Initialize(_parzenWindow.Precedents);
+                Initialize(_kNearestNeighbors.Precedents);
                 var testPointClass = -1;
-                for (int i = 0; i < sizeData; i++)
-                {
-                    dataN.Add(new Point(testX[i], testY[i]));
-                    int kX = 1;
-                    while (dataN[i].X > (minX + ((maxX - minX) / partsX) * kX))
-                    {
-                        kX++;
-                    }
-                    int kY = 1;
-                    while (dataN[i].Y > (minY + ((maxY - minY) / partsY) * kY))
-                    {
-                        kY++;
-                    }
-                    int k = kX + partsX * (kY - 1);
-                    precedents.Add(dataN[i], k);
-                }
                 //sort data by distance
                 //  Point testPoint = new Point(7.48, 8.24);
 
@@ -228,31 +204,25 @@ namespace MachineWPF
                     bestK = 0;
                     int loo = 10000000;
 
-                    for (int i = 1; i < precedents.Count; i++)
+                    for (int i = 1; i < _kNearestNeighbors.Precedents.Count; i++)
                     {
-                        int count = 0;
 
-
-                        foreach (var t in precedents)
-                        {
-                            var precedentsT = new Dictionary<Point, int>(precedents);
-                            precedentsT.Remove(t.Key);
-                            var res = KNearestNeighbors<Point, int>.Instance.Evaluate(t.Key, precedentsT, i);
-                            if (res != t.Value)
-                            {
-                                count++;
-                            }
-                        }
+                        var missmatch = _kNearestNeighbors.LeaveOneOut((x, y) => _kNearestNeighbors.Evaluate(x, y, i));
+                       
                         Console.WriteLine("k = " + i);
-                        Console.WriteLine("Missmatch = " + count);
-                        if (count < loo)
+                        Console.WriteLine("Missmatch = " + missmatch);
+                        if (missmatch < loo)
                         {
-                            loo = count;
+                            loo = missmatch;
                             bestK = i;
                         }
                     }
 
-                    testPointClass = KNearestNeighbors<Point, int>.Instance.Evaluate(testPoint, precedents, bestK);
+                    testPointClass = _kNearestNeighbors.Evaluate(testPoint, _kNearestNeighbors.Precedents, bestK);
+                    foreach (var p in _kNearestNeighbors.Precedents)
+                    {
+                        learningPoints.Points.Add(new ScatterPoint(p.Key.X, p.Key.Y, 2));
+                    }
                 }
 
                 if (type == 5)
@@ -263,36 +233,28 @@ namespace MachineWPF
 
                     for (double i = 10; i > 0; i = i - 0.2)
                     {
-                        int count = 0;
-
-                        foreach (var t in precedents)
-                        {
-                            var precedentsT = new Dictionary<Point, int>(precedents);
-                            precedentsT.Remove(t.Key);
-                            var res = ParsenWindow<Point, int>.Instance.Evaluate(t.Key, precedentsT, new Core('C'), i);
-                            if (res != t.Value)
-                            {
-                                count++;
-                            }
-                        }
+                        var missmatch = _parzenWindow.LeaveOneOut((x, y) => _parzenWindow.Evaluate(x, y,new Kernel('C'), i));
+ 
                         Console.WriteLine("h = " + i);
-                        Console.WriteLine("Missmatch = " + count);
-                        if (count < loo)
+                        Console.WriteLine("Missmatch = " + missmatch);
+                        if (missmatch < loo)
                         {
-                            loo = count;
+                            loo = missmatch;
                             bestH = i;
                         }
                     }
-                    testPointClass = ParsenWindow<Point, int>.Instance.Evaluate(testPoint, precedents, new Core('C'), bestH);
+                    testPointClass = _parzenWindow.Evaluate(testPoint, _parzenWindow.Precedents, new Kernel('C'), bestH);
                     maxD = bestH;
+                    foreach (var p in _parzenWindow.Precedents)
+                    {
+                        learningPoints.Points.Add(new ScatterPoint(p.Key.X, p.Key.Y, 2));
+                    }
                 }
 
                 
-                var learningPoints = new ScatterSeries { MarkerType = MarkerType.Circle };
-                for (int i = 0; i < sizeData; i++)
-                {
-                    learningPoints.Points.Add(new ScatterPoint(testX[i], testY[i], 2));
-                }
+            
+
+            
 
                 tmp.Axes.Add(new LinearAxis { AbsoluteMaximum = maxY, AbsoluteMinimum = minY });
                 tmp.Series.Add(learningPoints);
@@ -422,6 +384,54 @@ namespace MachineWPF
         private double TestF(double x)
         {
             return (1 / (1 + 25 * x * x));
+        }
+
+        private void Initialize(Dictionary<Point, int> precedents)
+        {
+            Random random = new Random();
+
+            double maxX = 10;
+            double minX = 5;
+            double maxY = 10;
+            double minY = 5;
+            int partsX = 5;
+            int partsY = 6;
+            double[] testX = { 8.21, 5.38, 6.73, 5.67, 8.7, 9.95, 8.11, 5.41, 8.37, 5.14, 5.48, 8.32, 9.76, 9.97, 9.88, 5.69, 7.7, 6.42, 6.42, 9.7, 5.98, 7.6, 6.42, 7.42, 7.84, 8.79, 6.58, 9.94, 6.32, 8.25, 5.06, 9.24, 7.75, 8.85, 6.5, 7.22, 9.46, 6.62, 7.91, 9.53, 8.15, 7.6, 7.97, 9.96, 5.11, 6.87, 5.15, 6.42, 6.62, 9.79, 6.61, 8.52, 8.95, 5.68, 7.27, 9.95, 7.45, 5.73, 9.35, 5.6, 6.61, 6.36, 8.99, 6.84, 6.37, 5.41, 8.88, 5.11, 5.16, 8.11, 6.82, 9.24, 7.38, 8.61, 7.6, 6.65, 5.44, 5.23, 7.29, 7.42, 8.55, 8.02, 6.2, 6.58, 6.07, 6.93, 5.6, 9.5, 7.61, 6.93, 9.29, 5.48, 6.65, 8.19, 6.22, 8.02, 8.58, 9.5, 9.44, 7.75 };
+            double[] testY = { 6.55, 6.07, 7.82, 9.15, 5.59, 8.38, 7.72, 6.29, 6.46, 7.21, 5.1, 9.42, 6.5, 5.05, 5.02, 6.61, 9.41, 6.6, 7.6, 5.12, 6.78, 6.99, 6.42, 6.71, 7.22, 8.2, 9.18, 9.39, 9.55, 8.49, 6.04, 5.37, 8.26, 5.72, 8.1, 7.64, 7.04, 7.5, 7.82, 5.14, 5.33, 8.91, 8.83, 6.07, 9.31, 6.51, 5.41, 9.47, 5.29, 7.59, 8.39, 8.25, 6.31, 8.72, 9.04, 7.66, 6.59, 6.18, 9.41, 8.66, 7.26, 8.07, 6.14, 7.64, 5.11, 6.62, 6.83, 8.9, 8.43, 8.52, 5.3, 8.24, 7.65, 5.55, 7.68, 5.94, 8.5, 8.21, 8.54, 9.43, 9.54, 9.48, 6.56, 7.86, 7.18, 5.36, 7.14, 5.2, 6.7, 5.37, 6.03, 8.35, 5.03, 8.87, 8.33, 5.65, 6.58, 6.54, 7.55, 9.75 };
+
+            //     double[] testX = { 9.22, 8.98, 6.51, 8.57, 8.43, 8.08, 7.54, 9.28, 8.67, 7.81, 9.19, 8.14, 9.38, 9.05, 9.48, 5.59, 7.32, 6.37, 5.48, 5.42 };
+            //     double[] testY = { 9.21, 6.16, 8.28, 5.84, 9.29, 7.37, 6.23, 7.76, 9.07, 8.02, 8.55, 6.75, 7.53, 7.64, 8.38, 6.34, 5.25, 6.54, 7.93, 8.82 };
+            //     double[] testX = { 9.04, 5.64, 5.17, 7.77, 6.36, 7.69, 9.83, 8.51, 6.28, 5.23, 7.44, 9.29, 9.74, 9.48, 5.84, 9.76, 6.99, 5.64, 9.49, 6.02, 5.87, 5.13, 9.88, 6.99, 7.96, 7.71, 7.65, 6.16, 7.77, 9.21, 8.35, 5.05, 5.64, 5.1, 7.66, 5.78, 8.61, 8.07, 7.69, 9.72, 9.47, 9.05, 5.34, 6.28, 5.06, 5.59, 7.69, 7.38, 9.29, 5.17, 7.29, 8.69, 9.16, 7.32, 8.45, 6.36, 6.13, 8.1, 6.95, 9.61, 6.71, 7.91, 9.61, 8.72, 7.57, 9.24, 6.66, 9.23, 7.45, 9.37, 6.02, 9.35, 7.61, 7.69, 8.26, 6.8, 7.49, 6.84, 9.56, 8.84, 5.38, 6.99, 7.01, 7.74, 7.47, 5.12, 9.39, 8.06, 5.4, 5.01, 7.21, 5.6, 9.27, 9.63, 7.97, 7.37, 7.1, 9.77, 8.64, 5.05 };
+            if (isRandom)
+            {
+                for (int i = 0; i < testX.Length; i++)
+                {
+                    testX[i] = random.NextDouble() * (maxX - minX) + minX;
+                }
+                for (int i = 0; i < testY.Length; i++)
+                {
+                    testY[i] = random.NextDouble() * (maxY - minY) + minY;
+                }
+            }
+            int sizeData = testX.Length;
+            List<Point> dataN = new List<Point>();
+
+            for (int i = 0; i < sizeData; i++)
+            {
+                dataN.Add(new Point(testX[i], testY[i]));
+                int kX = 1;
+                while (dataN[i].X > (minX + ((maxX - minX) / partsX) * kX))
+                {
+                    kX++;
+                }
+                int kY = 1;
+                while (dataN[i].Y > (minY + ((maxY - minY) / partsY) * kY))
+                {
+                    kY++;
+                }
+                int k = kX + partsX * (kY - 1);
+                precedents.Add(dataN[i], k);
+            }
         }
     }
 }

@@ -1,22 +1,23 @@
 ﻿namespace MachineWPF.Practice2
 {
-    class Core
+    class Kernel
     {
         private char type;
 
         public char Type { get => type; set => type = value; }
 
-        public Core(char type)
+        public Kernel(char type)
         {
             this.type = type;
         }
 
-        public double CoreExec(double p)
+        public double KernelExec(double p)
         {
             if (p >= 1) return 0;
             double weight = 0;
             switch (type)
             {
+                //square kernel
                 case 'C':
                     {
                         weight = 1 - p * p;

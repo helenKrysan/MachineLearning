@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MachineWPF;
 
 namespace MachineWPF
 {
@@ -58,7 +59,7 @@ namespace MachineWPF
         {
             DataContext = null;
             string[] s = XBox.Text.Split(',');
-            Point p = new Point (double.Parse(s[0],CultureInfo.InvariantCulture), double.Parse(s[1], CultureInfo.InvariantCulture));
+            Practice2.Point p = new Practice2.Point (double.Parse(s[0],CultureInfo.InvariantCulture), double.Parse(s[1], CultureInfo.InvariantCulture));
             PlotViewModel.testPoint = p;
             viewModel.PlotBuild(type);
             DataContext = viewModel;

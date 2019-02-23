@@ -23,7 +23,7 @@
 		<Label Name="Risk" Grid.Row="1" Height ="40" Content="LABEL" HorizontalAlignment="Left" Margin="0,0,0,0"/>
 		<Label Name="K" Grid.Row="2"  Height ="40" Content="LABEL" HorizontalAlignment="Left" Margin="0,0,0,0" />
 		<TextBox Name="XBox" Grid.Row="3" Grid.Column="0" ></TextBox>
-		<Button Name="XButton" Grid.Row="3" Grid.Column="1" Click="XButton_Click" ></Button>
-		<Button Name="RButton" Grid.Row="4"  Grid.ColumnSpan="2" Click="RButton_Click" ></Button>
+		<Button Name="XButton" Content="New Point" Grid.Row="3" Grid.Column="1" Click="XButton_Click" ></Button>
+		<Button Name="RButton" Content="Generate random Learning points" Grid.Row="4"  Grid.ColumnSpan="2" Click="RButton_Click" ></Button>
 	</Grid>
 </Window>

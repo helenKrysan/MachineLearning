@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MachineWPF.Practice2
 {
-    class KNearestNeighbors<T, C> : AbstractSingleton<KNearestNeighbors<T,C>> where T : IMetric<T>
+    class KNearestNeighbors<T, C> : AbstractClassification<T,C> where T : IMetric<T> where C : IComparable
     {
 
         internal C Evaluate(T testObject, Dictionary<T, C> precedents, int k)
