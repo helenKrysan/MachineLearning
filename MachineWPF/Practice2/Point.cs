@@ -34,5 +34,11 @@ namespace MachineWPF.Practice2
             this._y = y;
         }
 
+        public Point(Point p)
+        {
+            this._x = p.X;
+            this._y = p.Y;
+        }
+
     }
 }

@@ -61,7 +61,7 @@ namespace MachineWPF
             string[] s = XBox.Text.Split(',');
             Practice2.Point p = new Practice2.Point (double.Parse(s[0],CultureInfo.InvariantCulture), double.Parse(s[1], CultureInfo.InvariantCulture));
             PlotViewModel.testPoint = p;
-            viewModel.PlotBuild(type);
+            viewModel.ButtonClick(type);
             DataContext = viewModel;
             switch (type)
             {
@@ -89,7 +89,7 @@ namespace MachineWPF
         {
             DataContext = null;
             PlotViewModel.isRandom = true;
-            viewModel.PlotBuild(type);
+            viewModel.ButtonClick(type);
             DataContext = viewModel;
             switch (type)
             {

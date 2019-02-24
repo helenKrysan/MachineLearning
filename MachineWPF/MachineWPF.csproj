@@ -76,6 +76,7 @@
     <Compile Include="Parameters.cs" />
     <Compile Include="Practice2\ParsenWindow.cs" />
     <Compile Include="Practice2\Point.cs" />
+    <Compile Include="Practice2\TestModelPractice2.cs" />
     <Compile Include="SetParameters.xaml.cs">
       <DependentUpon>SetParameters.xaml</DependentUpon>
     </Compile>
