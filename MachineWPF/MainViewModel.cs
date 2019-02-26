@@ -1,4 +1,5 @@
-﻿using MachineWPF.Tools;
+﻿using MachineWPF.Practice2;
+using MachineWPF.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +27,33 @@ namespace MachineWPF
             }
         }
 
-        private void ParsenWindowDisplayCommandImpl(object obj)
+        private RelayCommand _kNearestNeighborsDisplayCommand;
+
+        public RelayCommand KNearestNeighborsDisplayCommand
         {
-            Plot plot = new Plot(5);
+            get
+            {
+                return _kNearestNeighborsDisplayCommand ?? (_kNearestNeighborsDisplayCommand = new RelayCommand(KNearestNeighborsDisplayCommandImpl));
+            }
+            set
+            {
+                _kNearestNeighborsDisplayCommand = value;
+            }
+        }
+
+        private void KNearestNeighborsDisplayCommandImpl(object obj)
+        {
+            PlotPractice2 plot = new PlotPractice2(4);
             plot.Show();
         }
+
+
+        private void ParsenWindowDisplayCommandImpl(object obj)
+        {
+            PlotPractice2 plot = new PlotPractice2(5);
+            plot.Show();
+        }
+
 
     }
 }

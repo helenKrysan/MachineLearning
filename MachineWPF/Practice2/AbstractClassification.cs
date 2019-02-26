@@ -11,7 +11,7 @@ namespace MachineWPF.Practice2
     {
         private Dictionary<T, C> _precedents = new Dictionary<T, C>();
 
-        public Dictionary<T, C> Precedents { get { return _precedents; } }
+        public Dictionary<T, C> Precedents { get { return _precedents; } set { _precedents = value; } }
 
         public int LeaveOneOut(Func<T, Dictionary<T, C>, C> evaluate)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MachineWPF.Practice2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,23 +60,10 @@ namespace MachineWPF
             plot.Show();
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-            Plot plot = new Plot(4);
-
-            plot.Show();
-        }
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-            Plot plot = new Plot(5);
-
-            plot.Show();
-        }
 
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
-            Plot plot = new Plot(6);
+            PlotPractice2 plot = new PlotPractice2(6);
 
             plot.Show();
         }

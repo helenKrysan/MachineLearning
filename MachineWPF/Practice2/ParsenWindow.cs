@@ -16,7 +16,7 @@ namespace MachineWPF.Practice2
             foreach (var obj in precedents.Keys)
             {
                 double dist = testObject.Distance(obj);
-                if (!allClassDistance.ContainsKey(Precedents[obj]))
+                if (!allClassDistance.ContainsKey(precedents[obj]))
                 {
                     allClassDistance.Add(precedents[obj], kernel.KernelExec(dist / h));
                 }

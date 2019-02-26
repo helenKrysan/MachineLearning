@@ -304,6 +304,7 @@ namespace MachineWPF
         /// Gets the plot model.
         /// </summary>
         public PlotModel Model { get; private set; }
+
         public double MaxD { get => maxD; set => maxD = value; }
 
         private double InterpolateLagrangePolynomial(double x, double[] xValues, double[] yValues, int size)

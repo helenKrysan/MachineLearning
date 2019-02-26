@@ -22,7 +22,7 @@
 		<Button Content="Lagrange" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Click="Button_Click"/>
 		<Button Content="Least Squares" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Click="Button_Click_3"/>
 		<Button Content="Spline Aproximation" Grid.Row="2"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" RenderTransformOrigin="0.526,3.081" Click="Button_Click_1"/>
-		<Button Content="k-NN" Grid.Row="3" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" RenderTransformOrigin="0.526,3.081" Click="Button_Click_4"/>
+		<Button Content="k-NN" Grid.Row="3" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Command="{Binding KNearestNeighborsDisplayCommand}"/>
 		<Button Name="BParsenWindowDisplay" Content="Parsen window" Grid.Row="4"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Command="{Binding ParsenWindowDisplayCommand}"/>
 		<Button Content="Standart" Grid.Row="5"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" RenderTransformOrigin="0.526,3.081" Click="Button_Click_6"/>
 		<Button  Content="Change default settings" Grid.Row="6" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Click="Button_Click_2"/>

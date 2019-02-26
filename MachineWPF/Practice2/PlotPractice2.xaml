@@ -1,0 +1,28 @@
+﻿<Window x:Class="MachineWPF.Practice2.PlotPractice2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MachineWPF.Practice2"
+        mc:Ignorable="d"
+        Title="PlotPractice2" Height="800" Width="700">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="40"></RowDefinition>
+			<RowDefinition Height="40"></RowDefinition>
+			<RowDefinition Height="40"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition></ColumnDefinition>
+			<ColumnDefinition></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<oxy:PlotView Grid.Row="0" Grid.ColumnSpan="2" Model="{Binding Model}" />
+		<Label Name="Class" Grid.Row="1" Grid.Column="0" Height ="40" HorizontalAlignment="Left" Margin="0,0,0,0" Content="{Binding TestPointClass}"/>
+		<Label Name="BestParam" Grid.Row="1" Grid.Column="1" Height ="40" HorizontalAlignment="Left" Margin="0,0,0,0" Content="{Binding BestParameter}"/>
+		<TextBox Name="ChangePointBox" Grid.Row="2" Grid.Column="0" ></TextBox>
+		<Button Name="ChangePointButton" Content="New Point" Grid.Row="2" Grid.Column="1" Command="{Binding ChangeTestPoint}" ></Button>
+		<Button Name="RandomButton" Content="Generate random Learning points" Grid.Row="3"  Grid.ColumnSpan="2" Command="{Binding GenerateRandom}"></Button>
+	</Grid>
+</Window>
