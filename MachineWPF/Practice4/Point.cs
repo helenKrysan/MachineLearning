@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MachineWPF.Practice2
+namespace MachineWPF.Practice4
 {
     class Point : IMetric<Point>
     {

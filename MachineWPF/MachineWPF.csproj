@@ -80,9 +80,31 @@
       <DependentUpon>PlotPractice2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Practice2\Point.cs" />
-    <Compile Include="Practice2\Sample.cs" />
+    <Compile Include="Practice2\PointEqualityComparer.cs" />
+    <Compile Include="Practice2\Standart.cs" />
     <Compile Include="Practice2\TestModelPractice2.cs" />
     <Compile Include="Practice2\ViewModels\PlotPractice2ViewModel.cs" />
+    <Compile Include="Practice3\AbstractNonParametricRegression.cs" />
+    <Compile Include="Practice3\Real.cs" />
+    <Compile Include="Practice3\NadarayaWatson.cs" />
+    <Compile Include="Practice3\TestModelPractice3.cs" />
+    <Compile Include="Practice3\ViewModels\PlotPractice3ViewModel.cs" />
+    <Compile Include="Practice3\Views\PlotPractice3.xaml.cs">
+      <DependentUpon>PlotPractice3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Practice4\EntropyInformationCriterion.cs" />
+    <Compile Include="Practice4\FisherInformationCriterion.cs" />
+    <Compile Include="Practice4\LogicClassification.cs" />
+    <Compile Include="Practice4\HeuristicInformationCriterion.cs" />
+    <Compile Include="Practice4\IMetric.cs" />
+    <Compile Include="Practice4\AbstractInformationCriterion.cs" />
+    <Compile Include="Practice4\Point.cs" />
+    <Compile Include="Practice4\Rule.cs" />
+    <Compile Include="Practice4\TestModelPractice4.cs" />
+    <Compile Include="Practice4\ViewModels\PlotPractice4ViewModel.cs" />
+    <Compile Include="Practice4\Views\PlotPractice4.xaml.cs">
+      <DependentUpon>PlotPractice4.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SetParameters.xaml.cs">
       <DependentUpon>SetParameters.xaml</DependentUpon>
     </Compile>
@@ -108,6 +130,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Practice2\PlotPractice2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Practice3\Views\PlotPractice3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Practice4\Views\PlotPractice4.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

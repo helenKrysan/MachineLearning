@@ -1,4 +1,6 @@
 ﻿using MachineWPF.Practice2;
+using MachineWPF.Practice3.Views;
+using MachineWPF.Practice4.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +66,27 @@ namespace MachineWPF
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
             PlotPractice2 plot = new PlotPractice2(6);
+
+            plot.Show();
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            PlotPractice3 plot = new PlotPractice3(7);
+
+            plot.Show();
+        }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            PlotPractice3 plot = new PlotPractice3(8);
+
+            plot.Show();
+        }
+
+        private void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            PlotPractice4 plot = new PlotPractice4(9);
 
             plot.Show();
         }

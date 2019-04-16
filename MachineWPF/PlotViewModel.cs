@@ -176,127 +176,9 @@ namespace MachineWPF
                 tmp.Series.Add(seriesSplineRes);
 
             }
-            if (type == 4 || type == 5 || type == 6)
-            {
 
-                //test data, form list (point,class)
-                var learningPoints = new ScatterSeries { MarkerType = MarkerType.Circle };
-                var testPointClass = -1;
-                //sort data by distance
-                //  Point testPoint = new Point(7.48, 8.24);
-
-                if (type == 4)
-                {
-                    //(point,distance)
-                    bestK = 0;
-                    int loo = 10000000;
-
-                    for (int i = 1; i < _testModel.KNearestNeighbors.Precedents.Count; i++)
-                    {
-                        var missmatch = _testModel.KNearestNeighbors.LeaveOneOut((x, y) => _testModel.KNearestNeighbors.Evaluate(x, y, i));
-                       
-                        Console.WriteLine("k = " + i);
-                        Console.WriteLine("Missmatch = " + missmatch);
-                        if (missmatch < loo)
-                        {
-                            loo = missmatch;
-                            bestK = i;
-                        }
-                    }
-                    testPointClass = _testModel.KNearestNeighbors.Evaluate(testPoint, _testModel.KNearestNeighbors.Precedents, bestK);
-                    foreach (var p in _testModel.KNearestNeighbors.Precedents)
-                    {
-                        learningPoints.Points.Add(new ScatterPoint(p.Key.X, p.Key.Y, 2));
-                    }
-                }
-
-                if (type == 5)
-                {
-                    //(point,distance)
-                    bestH = 0;
-                    int loo = 10000000;
-
-                    for (double i = 10; i > 0; i = i - 0.2)
-                    {
-                        var missmatch = _testModel.ParzenWindow.LeaveOneOut((x, y) => _testModel.ParzenWindow.Evaluate(x, y,new Kernel('C'), i));
- 
-                        Console.WriteLine("h = " + i);
-                        Console.WriteLine("Missmatch = " + missmatch);
-                        if (missmatch < loo)
-                        {
-                            loo = missmatch;
-                            bestH = i;
-                        }
-                    }
-                    testPointClass = _testModel.ParzenWindow.Evaluate(testPoint, _testModel.ParzenWindow.Precedents, new Kernel('C'), bestH);
-                    maxD = bestH;
-                    foreach (var p in _testModel.ParzenWindow.Precedents)
-                    {
-                        learningPoints.Points.Add(new ScatterPoint(p.Key.X, p.Key.Y, 2));
-                    }
-                }
-
-                tmp.Axes.Add(new LinearAxis { AbsoluteMaximum = _testModel.MaxXY.Y, AbsoluteMinimum = _testModel.MinXY.Y });
-                tmp.Series.Add(learningPoints);
-                var pointdraw = new ScatterSeries { MarkerType = MarkerType.Circle };
-                pointdraw.Points.Add(new ScatterPoint(testPoint.X, testPoint.Y, 3));
-                tmp.Series.Add(pointdraw);
-
-                for (int i = 0; i < (_testModel.PartsY + 1); i++)
-                {
-                    var rValue = _testModel.MinXY.Y + ((_testModel.MaxXY.Y - _testModel.MinXY.Y) / _testModel.PartsY) * i;
-                    Func<double, double> yAxe = (x) =>
-                    {
-                        return rValue;
-                    };
-                    var xLineAxes = new FunctionSeries(yAxe, _testModel.MinXY.X, _testModel.MaxXY.X, 0.1);
-                    xLineAxes.Color = OxyColors.Gray;
-                    tmp.Series.Add(xLineAxes);
-                }
-
-                for (int i = 0; i < (_testModel.PartsX + 1); i++)
-                {
-                    var rValue = _testModel.MinXY.X + ((_testModel.MaxXY.X - _testModel.MinXY.X) / _testModel.PartsX) * i;
-                    Func<double, double> yAxe = (x) =>
-                    {
-                        return rValue;
-                    };
-                    Func<double, double> xAxe = (y) =>
-                    {
-                        return y;
-                    };
-                    var yLineAxes = new FunctionSeries(yAxe, xAxe, _testModel.MinXY.Y, _testModel.MaxXY.Y, 0.1);
-                    yLineAxes.Color = OxyColors.Gray;
-                    tmp.Series.Add(yLineAxes);
-                }
-
-                Func<double, double> circleFP = (x) =>
-                {
-                    return Math.Sqrt(Math.Max(maxD * maxD - Math.Pow((testPoint.X - x), 2), 0)) + testPoint.Y;
-                };
-                Func<double, double> circleFN = (x) =>
-                {
-                    return -Math.Sqrt(Math.Max(maxD * maxD - Math.Pow((testPoint.X - x), 2), 0)) + testPoint.Y;
-                };
-                var circleP = new FunctionSeries(circleFP, testPoint.X - maxD, testPoint.X + maxD, 0.001);
-                var circleN = new FunctionSeries(circleFN, testPoint.X - maxD, testPoint.X + maxD, 0.001);
-                circleP.Color = OxyColors.Red;
-                tmp.Series.Add(circleP);
-                circleN.Color = OxyColors.Red;
-                tmp.Series.Add(circleN);
-
-                classX = testPointClass;
-            }
-
-            // Set the Model property, the INotifyPropertyChanged event will make the WPF Plot control update its content
-            if (type == 4 || type == 5 || type == 6)
-            {
-
-            }
-            else
-            {
                 eRisk = EmpericRisk();
-            }
+            
             this.Model = tmp;
         }
 
@@ -357,8 +239,8 @@ namespace MachineWPF
 
         private double TestF(double x)
         {
-            //return (1 / (1 + 25 * x * x));
-            return Math.Sin(x);
+            return (1 / (1 + 25 * x * x));
+            //return Math.Sin(x);
         }
     }
 }

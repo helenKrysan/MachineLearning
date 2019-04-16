@@ -15,6 +15,9 @@
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<Grid.Background>
 			<ImageBrush ImageSource="C:\Users\olena\Documents\Visual Studio 2017\Projects\VetClinic\VetClinic/Main_Back.jpg" Stretch="UniformToFill"/>
@@ -25,7 +28,11 @@
 		<Button Content="k-NN" Grid.Row="3" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Command="{Binding KNearestNeighborsDisplayCommand}"/>
 		<Button Name="BParsenWindowDisplay" Content="Parsen window" Grid.Row="4"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Command="{Binding ParsenWindowDisplayCommand}"/>
 		<Button Content="Standart" Grid.Row="5"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" RenderTransformOrigin="0.526,3.081" Click="Button_Click_6"/>
-		<Button  Content="Change default settings" Grid.Row="6" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Click="Button_Click_2"/>
+		<Button Content="Nadaraya-Watson" Grid.Row="6"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" RenderTransformOrigin="0.526,3.081" Click="Button_Click_7"/>
+		<Button Content="LOWESS" Grid.Row="7"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" RenderTransformOrigin="0.526,3.081" Click="Button_Click_8"/>
+		<Button Content="Lab4" Grid.Row="8"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" RenderTransformOrigin="0.526,3.081" Click="Button_Click_9"/>
+
+		<Button  Content="Change default settings" Grid.Row="9" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Click="Button_Click_2"/>
 
 	</Grid>
 </Window>

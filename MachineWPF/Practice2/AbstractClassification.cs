@@ -11,17 +11,18 @@ namespace MachineWPF.Practice2
     {
         private Dictionary<T, C> _precedents = new Dictionary<T, C>();
 
-        public Dictionary<T, C> Precedents { get { return _precedents; } set { _precedents = value; } }
+        public Dictionary<T, C> Precedents { get { return _precedents; } }
 
-        public int LeaveOneOut(Func<T, Dictionary<T, C>, C> evaluate)
+        public int LeaveOneOut(Func<T, Dictionary<T, C>, C> evaluate, Dictionary<T, C> precedentsTest)
         {
             int countMissmatch = 0;
 
             foreach (var t in Precedents)
             {
-                var precedentsTest = new Dictionary<T, C>(Precedents);
-                precedentsTest.Remove(t.Key);
-                var res = evaluate(t.Key, precedentsTest);
+                var precedentsTestCopy = new Dictionary<T, C>(precedentsTest);
+                if(precedentsTestCopy.ContainsKey(t.Key))
+                    precedentsTestCopy.Remove(t.Key);
+                var res = evaluate(t.Key, precedentsTestCopy);
                 if (!res.Equals(t.Value))
                 {
                     countMissmatch++;
@@ -29,6 +30,25 @@ namespace MachineWPF.Practice2
             }
 
             return countMissmatch;
+        }
+
+        public Dictionary<T,C> EjectionDetect(double distanceToDetectEjection)
+        {
+            Dictionary<T, C> precedentsWithoutEjection = new Dictionary<T, C>(Precedents);
+            foreach(var t in Precedents)
+            {
+                foreach(var p in Precedents)
+                {
+                    if (t.Key.Distance(p.Key) < distanceToDetectEjection)
+                    {
+                        if (!t.Value.Equals(p.Value))
+                        {
+                            precedentsWithoutEjection.Remove(p.Key);
+                        }
+                    }
+                }
+            }
+            return precedentsWithoutEjection;
         }
 
     }

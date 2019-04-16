@@ -5,6 +5,7 @@ using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -101,8 +102,24 @@ namespace MachineWPF.Practice2.ViewModels
             }
         }
 
+        private string _testPointText;
+        public string TestPointText
+        {
+            get
+            {
+                return _testPointText;
+            }
+            set
+            {
+                _testPointText = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void ChangeTestPointImpl(object obj)
         {
+            string[] s = _testPointText.Split(',');
+            _testPoint = new Point(double.Parse(s[0], CultureInfo.InvariantCulture), double.Parse(s[1], CultureInfo.InvariantCulture));
             PlotBuild();
         }
 
@@ -168,7 +185,7 @@ namespace MachineWPF.Practice2.ViewModels
 
                     for (int i = 1; i < _testModel.KNearestNeighbors.Precedents.Count; i++)
                     {
-                        var missmatch = _testModel.KNearestNeighbors.LeaveOneOut((x, y) => _testModel.KNearestNeighbors.Evaluate(x, y, i));
+                        var missmatch = _testModel.KNearestNeighbors.LeaveOneOut((x, y) => _testModel.KNearestNeighbors.Evaluate(x, y, i), _testModel.KNearestNeighbors.Precedents);
 
                         Console.WriteLine("k = " + i);
                         Console.WriteLine("Missmatch = " + missmatch);
@@ -193,14 +210,14 @@ namespace MachineWPF.Practice2.ViewModels
 
                     for (double i = 10; i > 0; i = i - 0.2)
                     {
-                        var missmatch = _testModel.ParzenWindow.LeaveOneOut((x, y) => _testModel.ParzenWindow.Evaluate(x, y, new Kernel('C'), i));
+                        var missmatch = _testModel.ParzenWindow.LeaveOneOut((x, y) => _testModel.ParzenWindow.Evaluate(x, y, new Kernel('C'), i), _testModel.ParzenWindow.Precedents);
 
                         Console.WriteLine("h = " + i);
                         Console.WriteLine("Missmatch = " + missmatch);
                         if (missmatch < loo)
                         {
                             loo = missmatch;
-                            BestH = Math.Round(i,3);
+                            BestH = Math.Round(i, 3);
                         }
                     }
                     TestPointClass = _testModel.ParzenWindow.Evaluate(_testPoint, _testModel.ParzenWindow.Precedents, new Kernel('C'), _bestH);
@@ -211,82 +228,45 @@ namespace MachineWPF.Practice2.ViewModels
                     }
                 }
 
-                if(_type == 6)
+                if (_type == 6)
                 {
-                    BestH = 0;
+                    BestH = 0.6;
                     int loo = 10000000;
-
-                    for (double i = 10; i > 0; i = i - 0.2)
-                    {
-                        var missmatch = _testModel.ParzenWindow.LeaveOneOut((x, y) => _testModel.ParzenWindow.Evaluate(x, y, new Kernel('C'), i));
-
-                        Console.WriteLine("h = " + i);
-                        Console.WriteLine("Missmatch = " + missmatch);
-                        if (missmatch < loo)
-                        {
-                            loo = missmatch;
-                            BestH = Math.Round(i, 3);
-                        }
-                    }
-
                     BestS = 0;
-                    loo = 10000000;
+                    var withoutEjection = _testModel.Standart.EjectionDetect(0.2);
 
-              /*      for (double i = 1; i > 0; i = i - 0.1)
+                    for (double j = 1; j > 0; j = j - 0.05)
                     {
-                        var missmatch = 0;
-                    //    var missmatch = _testModel.Sample.LeaveOneOut((x, y) => _testModel.ParzenWindow.Evaluate(x, y, new Kernel('C'), i));
+                        var standartPrecedentsLearn = _testModel.Standart.EtalonStandartization(withoutEjection,j);
+                        var missmatch = _testModel.ParzenWindow.LeaveOneOut((x, y) => _testModel.ParzenWindow.Evaluate(x, y, new Kernel('C'), BestH), standartPrecedentsLearn);
 
-                        Console.WriteLine("s = " + i);
+                        Console.WriteLine("s = " + j);
                         Console.WriteLine("Missmatch = " + missmatch);
                         if (missmatch < loo)
                         {
                             loo = missmatch;
-                            BestS = Math.Round(i, 3);
-                        }
-                    }*/
+                            BestS = Math.Round(j, 3);
 
-                    for (double i = 10; i > 0; i = i - 0.2)
-                    {
-                        var missmatch = _testModel.ParzenWindow.LeaveOneOut((x, y) => _testModel.ParzenWindow.Evaluate(x, y, new Kernel('C'), i));
-
-                        Console.WriteLine("h = " + i);
-                        Console.WriteLine("Missmatch = " + missmatch);
-                        if (missmatch < loo)
-                        {
-                            loo = missmatch;
-                            BestH = Math.Round(i, 3);
                         }
+
                     }
+                    var standartPrecedents = _testModel.Standart.EtalonStandartization(withoutEjection,BestS);
 
 
-                    Dictionary<int,List<Point>> testSample = new Dictionary<int,List< Point>>();
-                    foreach(var p in _testModel.Sample.Precedents)
+
+                    foreach (var p in _testModel.Standart.Precedents)
                     {
-                        if (!testSample.ContainsKey(p.Value))
-                        {
-                            testSample.Add(p.Value, new List<Point>());
-                        }
-                        testSample[p.Value].Add(p.Key);
+                        learningPoints.Points.Add(new ScatterPoint(p.Key.X, p.Key.Y, 1.2));
                     }
-                    Dictionary<Point, int> samplePrecedents = new Dictionary<Point, int>();
-                    foreach(var p in testSample)
-                    {
-                        var list = Centroid(p.Value, 0.3);
-                        foreach(var l in list)
-                        {
-                            samplePrecedents.Add(l, p.Key);
-                        }
-                    }
-                    foreach (var p in _testModel.Sample.Precedents)
-                    {
-                        learningPoints.Points.Add(new ScatterPoint(p.Key.X, p.Key.Y, 2));
-                    }
-                    foreach (var p in samplePrecedents)
+                    foreach (var p in standartPrecedents)
                     {
                         learningPoints.Points.Add(new ScatterPoint(p.Key.X, p.Key.Y, 5));
                     }
-                    TestPointClass =  _testModel.ParzenWindow.Evaluate(_testPoint, samplePrecedents, new Kernel('C'), _bestH);
+                    foreach(var p in withoutEjection)
+                    {
+                        learningPoints.Points.Add(new ScatterPoint(p.Key.X, p.Key.Y, 3));
+                    }
+                    TestPointClass = _testModel.ParzenWindow.Evaluate(_testPoint, standartPrecedents, new Kernel('C'), BestH);
                     maxD = BestH;
                 }
 
@@ -343,30 +323,6 @@ namespace MachineWPF.Practice2.ViewModels
             this.Model = plot;
         }
 
-        private List<Point> Centroid(List<Point> prec, double part)
-        {
-            Dictionary<Point,double> distAll = new Dictionary<Point, double>();
-            foreach(var a in prec)
-            {
-                List<Point> p = new List<Point>(prec);
-                p.Remove(a);
-                double d = 0;
-                foreach(var a1 in p)
-                {
-                    d += a.Distance(a1);
-                }
-                distAll.Add(a,d);
-            }
-            var sortedDistance = distAll.ToList();
-            sortedDistance.Sort((d1, d2) => d1.Value.CompareTo(d2.Value));
-            int k = Convert.ToInt32(Math.Floor(sortedDistance.Capacity*part));
-            var resList = new List<Point>();
-            for (int i= 0;i < k; i++)
-            {
-                resList.Add(sortedDistance[i].Key);
-            }
-            return resList;
-        }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

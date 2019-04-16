@@ -21,7 +21,7 @@
 		<oxy:PlotView Grid.Row="0" Grid.ColumnSpan="2" Model="{Binding Model}" />
 		<Label Name="Class" Grid.Row="1" Grid.Column="0" Height ="40" HorizontalAlignment="Left" Margin="0,0,0,0" Content="{Binding TestPointClass}"/>
 		<Label Name="BestParam" Grid.Row="1" Grid.Column="1" Height ="40" HorizontalAlignment="Left" Margin="0,0,0,0" Content="{Binding BestParameter}"/>
-		<TextBox Name="ChangePointBox" Grid.Row="2" Grid.Column="0" ></TextBox>
+		<TextBox Name="ChangePointBox" Grid.Row="2" Grid.Column="0"  Text="{Binding TestPointText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ></TextBox>
 		<Button Name="ChangePointButton" Content="New Point" Grid.Row="2" Grid.Column="1" Command="{Binding ChangeTestPoint}" ></Button>
 		<Button Name="RandomButton" Content="Generate random Learning points" Grid.Row="3"  Grid.ColumnSpan="2" Command="{Binding GenerateRandom}"></Button>
 	</Grid>
