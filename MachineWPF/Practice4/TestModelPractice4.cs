@@ -14,7 +14,7 @@ namespace MachineWPF.Practice4
         public int PartsY { get; set; }
         private double[] _testX;
         private double[] _testY;
-        private const int _size = 300;
+        private const int _size = 150;
 
         private HeuristicInformationCriterion _heuristicInformationCriterion;
 
@@ -78,9 +78,7 @@ namespace MachineWPF.Practice4
 
             _entropyInformationCriterion = new EntropyInformationCriterion();
             Initialize(_entropyInformationCriterion.Precedents);
-            ChangeRule(_entropyInformationCriterion, 1, 0);
-
-
+            ChangeRule(_entropyInformationCriterion, 1, 0);        
         }
 
         public void ChangeRule(AbstractInformationCriterion creterion,int _class, double eps)

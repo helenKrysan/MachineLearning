@@ -159,6 +159,7 @@ namespace MachineWPF.Practice2.ViewModels
         {
             _type = type;
             _testPoint = new Point(7.3, 8.2);
+            _isRandom = false;
             _testModel = new TestModelPractice2(_isRandom);
             PlotBuild();
         }

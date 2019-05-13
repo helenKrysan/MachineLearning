@@ -9,7 +9,7 @@ namespace MachineWPF.Practice4
     class HeuristicInformationCriterion : AbstractInformationCriterion
     {
 
-        public double Information()
+        public override double Information()
         {
             return ((double)Positive / ((double)Positive + (double)Negative));
         }

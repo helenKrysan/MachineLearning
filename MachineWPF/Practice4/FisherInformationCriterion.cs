@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace MachineWPF.Practice4
 {
     class FisherInformationCriterion : AbstractInformationCriterion
@@ -14,7 +13,7 @@ namespace MachineWPF.Practice4
 
             //n!/(n-k)!*k!
 
-        public double Information()
+        public override double Information()
         {
             return -1*Math.Log(Combination(PositiveTotal,Positive)*Combination(NegativeTotal,Negative)/Combination(PositiveTotal+NegativeTotal,Positive+Negative));
         }
@@ -33,7 +32,7 @@ namespace MachineWPF.Practice4
             double res = 1;
             for(int i = from; i<= to; i++)
             {
-                res *= i;
+                res *= (double)i;
             }
             if(res == 0)
             {

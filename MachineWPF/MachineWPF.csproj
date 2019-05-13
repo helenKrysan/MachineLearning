@@ -80,7 +80,6 @@
       <DependentUpon>PlotPractice2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Practice2\Point.cs" />
-    <Compile Include="Practice2\PointEqualityComparer.cs" />
     <Compile Include="Practice2\Standart.cs" />
     <Compile Include="Practice2\TestModelPractice2.cs" />
     <Compile Include="Practice2\ViewModels\PlotPractice2ViewModel.cs" />
@@ -92,6 +91,7 @@
     <Compile Include="Practice3\Views\PlotPractice3.xaml.cs">
       <DependentUpon>PlotPractice3.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Practice4\BinaryTree.cs" />
     <Compile Include="Practice4\EntropyInformationCriterion.cs" />
     <Compile Include="Practice4\FisherInformationCriterion.cs" />
     <Compile Include="Practice4\LogicClassification.cs" />

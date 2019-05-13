@@ -1,0 +1,26 @@
+﻿<Window x:Class="MachineWPF.Practice1.Views.PlotPractice1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MachineWPF.Practice1.Views"
+        mc:Ignorable="d"
+        Title="PlotPractice1" Height="300" Width="300">
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="40"></RowDefinition>
+			<RowDefinition Height="40"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition></ColumnDefinition>
+			<ColumnDefinition></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<oxy:PlotView Grid.Row="0" Grid.ColumnSpan="2" Model="{Binding Model}" />
+		<Label Name="Class" Grid.Row="1" Grid.Column="0" Height ="40" HorizontalAlignment="Left" Margin="0,0,0,0" Content="{Binding TestPointY}"/>
+		<Label Name="BestParam" Grid.Row="1" Grid.Column="1" Height ="40" HorizontalAlignment="Left" Margin="0,0,0,0" Content="{Binding EmpericRisk}"/>
+		<TextBox Name="ChangePointBox" Grid.Row="2" Grid.Column="0"  Text="{Binding TestPointXText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+		<Button Name="ChangePointButton" Content="New Point" Grid.Row="2" Grid.Column="1" Command="{Binding ChangeTestPointX}" ></Button>
+	</Grid>
+</Window>

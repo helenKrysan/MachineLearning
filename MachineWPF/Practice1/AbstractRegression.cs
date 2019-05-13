@@ -12,14 +12,14 @@ namespace MachineWPF.Practice1
 
         public Dictionary<T, C> Precedents { get { return _precedents; } }
 
-/*        private double EmpericRisk()
+        internal double EmpericRisk(Func<T, C> function)
         {
             double res = 0;
-            for (int i = 0; i < size - 1; i++)
+            foreach (var p in _precedents)
             {
-                res += Math.Pow(testResultValues[i] - TestF(testValues[i]), 2);
+                res += Math.Pow(Convert.ToDouble(p.Value) - Convert.ToDouble(function(p.Key)), 2);
             }
             return res;
-        }*/
+        }
     }
 }

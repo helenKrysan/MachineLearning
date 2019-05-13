@@ -13,7 +13,7 @@ namespace MachineWPF.Practice4
         private char _identifier;
         private int _class;
 
-        public Rule(double startPoint, double endPoint, char identifier, int _class)
+        public Rule(double startPoint, double endPoint, char identifier, int _class) 
         {
             _startPoint = startPoint;
             _endPoint = endPoint;
@@ -48,6 +48,12 @@ namespace MachineWPF.Practice4
         public bool CheckRule(double x)
         {
             return (_startPoint <= x) && (x < _endPoint);
+        }
+
+        public override string ToString()
+        {
+            return "Identifier - " + Identifier + " From: " + StartPoint + ", To: " + EndPoint;
+
         }
     }
 }

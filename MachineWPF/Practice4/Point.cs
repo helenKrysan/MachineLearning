@@ -61,5 +61,10 @@ namespace MachineWPF.Practice4
             this._y = p.Y;
         }
 
+        public override string ToString()
+        {
+            return " X: " + X + "; Y: " + Y + " ";
+        }
+
     }
 }
