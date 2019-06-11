@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MachineWPF.Practice1
 {
-    class LeastSquare
+    class LeastSquare : AbstractRegression<double,double>
     {
         internal double Evaluate(double testObject, Dictionary<double, double> precedents, int n)
         {

@@ -70,6 +70,14 @@
     </ApplicationDefinition>
     <Compile Include="PlotViewModel.cs" />
     <Compile Include="Practice1\AbstractRegression.cs" />
+    <Compile Include="Practice1\InterpolateLagrangePolynomial.cs" />
+    <Compile Include="Practice1\LeastSquare.cs" />
+    <Compile Include="Practice1\SplineAproximation.cs" />
+    <Compile Include="Practice1\TestModelPractice1.cs" />
+    <Compile Include="Practice1\ViewModels\PlotPractice1ViewModel.cs" />
+    <Compile Include="Practice1\Views\PlotPractice1.xaml.cs">
+      <DependentUpon>PlotPractice1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Practice2\AbstractClassification.cs" />
     <Compile Include="Practice2\Kernel.cs" />
     <Compile Include="Practice2\IMetric.cs" />
@@ -129,6 +137,10 @@
       <DependentUpon>Plot.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Practice1\Views\PlotPractice1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Practice2\PlotPractice2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
